@@ -83,7 +83,7 @@
           <div class="footer">
             <p>© 2024 Nice Ayurvedic Store. All rights reserved.</p>
             <p class="support">
-              <i class="fas fa-headset"></i> Support: +91 98765 43210
+              <i class="fas fa-headset"></i> Support: +91 98854 22430
             </p>
           </div>
         </div>
