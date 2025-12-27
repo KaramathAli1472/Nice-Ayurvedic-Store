@@ -1,0 +1,24 @@
+/* src/assets/global-fix.css */
+/* Force full-width app, black background hatao */
+html, body, #app {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+  background: #f3f4f6 !important;
+}
+
+/* Jo bhi parent container width limit kar raha ho usko override */
+body > div,
+#app > div {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Koi center container flex ho to bhi full kar do */
+body,
+#app,
+#app > div {
+  display: block !important;
+}
