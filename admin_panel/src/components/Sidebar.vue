@@ -1,19 +1,19 @@
 <template>
   <aside class="sidebar">
-    <div class="logo-container">
+    <!-- <div class="logo-container">
       <img src="@/assets/logo.png" alt="Nice Ayurvedic Store" class="logo" />
-    </div>
+    </div> -->
     <nav>
-      <router-link to="/" class="nav-item">
+      <router-link to="/dashboard" class="nav-item">
         📊 Dashboard
       </router-link>
-      <router-link to="/products" class="nav-item">
+      <router-link to="/dashboard/products" class="nav-item">
         📦 Products
       </router-link>
-      <router-link to="/orders" class="nav-item">
+      <router-link to="/dashboard/orders" class="nav-item">
         🛒 Orders
       </router-link>
-      <router-link to="/customers" class="nav-item">
+      <router-link to="/dashboard/customers" class="nav-item">
         👥 Customers
       </router-link>
     </nav>
@@ -32,6 +32,10 @@ export default {
   background: #1e293b;
   color: white;
   padding: 20px;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 
 .logo-container {
@@ -41,7 +45,7 @@ export default {
 }
 
 .logo {
-  max-width: 180px;
+  max-width: 80px;
   height: auto;
   object-fit: contain;
 }

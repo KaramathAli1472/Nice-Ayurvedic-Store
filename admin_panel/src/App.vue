@@ -1,6 +1,6 @@
+<!-- src/App.vue -->
 <template>
-  <!-- RouterView will render Login, Dashboard, etc -->
-  <router-view></router-view>
+  <router-view />
 </template>
 
 <script>
@@ -10,24 +10,25 @@ export default {
 </script>
 
 <style>
-/* Global reset + layout */
-html, body, #app {
+html,
+body,
+#app {
   margin: 0;
   padding: 0;
   width: 100%;
   min-height: 100vh;
 }
 
-/* Optional global styles */
 body {
   font-family: Arial, sans-serif;
-  background: #f3f4f6; /* light grey so black side area nahi aayega */
+  background: #f3f4f6;
   color: #111827;
   box-sizing: border-box;
 }
 
-/* Ensure all elements use border-box */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 </style>

@@ -1,6 +1,9 @@
 /* src/assets/global-fix.css */
+
 /* Force full-width app, black background hatao */
-html, body, #app {
+html,
+body,
+#app {
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important;
@@ -21,4 +24,19 @@ body,
 #app,
 #app > div {
   display: block !important;
+}
+
+/* IMPORTANT: headings ka default top margin hatao */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+/* Paragraph ka top margin bhi 0 rakho (optional) */
+p {
+  margin-top: 0;
 }

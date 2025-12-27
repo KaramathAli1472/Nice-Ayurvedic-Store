@@ -1,5 +1,3 @@
-is code ma side bar add kara please sirf wahie add kara baki ka code bilkul sahie hai 
-
 <!-- src/views/dashboard/Dashboard.vue -->
 <template>
   <div class="desktop-dashboard">
@@ -17,7 +15,6 @@ is code ma side bar add kara please sirf wahie add kara baki ka code bilkul sahi
       </div>
     </div>
 
-
     <!-- Stats Grid -->
     <div class="stats-grid">
       <div class="stat-card">
@@ -30,10 +27,11 @@ is code ma side bar add kara please sirf wahie add kara baki ka code bilkul sahi
         <div class="stat-content">
           <h3>Total Products</h3>
           <p class="stat-number">{{ totalProducts }}</p>
-          <router-link to="/products" class="view-link">View All →</router-link>
+          <router-link to="/dashboard/products" class="view-link">
+            View All →
+          </router-link>
         </div>
       </div>
-
 
       <div class="stat-card">
         <div
@@ -45,10 +43,11 @@ is code ma side bar add kara please sirf wahie add kara baki ka code bilkul sahi
         <div class="stat-content">
           <h3>Total Orders</h3>
           <p class="stat-number">{{ totalOrders }}</p>
-          <router-link to="/orders" class="view-link">View All →</router-link>
+          <router-link to="/dashboard/orders" class="view-link">
+            View All →
+          </router-link>
         </div>
       </div>
-
 
       <div class="stat-card">
         <div
@@ -60,10 +59,11 @@ is code ma side bar add kara please sirf wahie add kara baki ka code bilkul sahi
         <div class="stat-content">
           <h3>Total Customers</h3>
           <p class="stat-number">{{ totalCustomers }}</p>
-          <router-link to="/customers" class="view-link">View All →</router-link>
+          <router-link to="/customersPage/customers" class="view-link">
+            View All →
+          </router-link>
         </div>
       </div>
-
 
       <div class="stat-card">
         <div
@@ -80,14 +80,14 @@ is code ma side bar add kara please sirf wahie add kara baki ka code bilkul sahi
       </div>
     </div>
 
-
     <!-- Recent Activity -->
     <div class="recent-activity">
       <div class="section-title">
         <h2><i class="fas fa-history"></i> Recent Activity</h2>
-        <router-link to="/orders" class="see-all">See All →</router-link>
+        <router-link to="/dashboard/orders" class="see-all">
+          See All →
+        </router-link>
       </div>
-
 
       <div class="activity-table">
         <table>
@@ -118,44 +118,43 @@ is code ma side bar add kara please sirf wahie add kara baki ka code bilkul sahi
       </div>
     </div>
 
-
     <!-- Quick Actions -->
     <div class="quick-actions">
       <div class="section-title">
         <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
       </div>
 
-
       <div class="actions-grid">
-        <router-link to="/products" class="action-card">
-          <div class="action-icon" style="background: #4caf50;">
+        <!-- Products -->
+        <router-link to="/dashboard/products" class="action-card">
+          <div class="action-icon" style="background: #4caf50">
             <i class="fas fa-plus-circle"></i>
           </div>
           <h3>Add New Product</h3>
           <p>Add new ayurvedic product to inventory</p>
         </router-link>
 
-
-        <router-link to="/orders" class="action-card">
-          <div class="action-icon" style="background: #2196f3;">
+        <!-- Orders -->
+        <router-link to="/dashboard/orders" class="action-card">
+          <div class="action-icon" style="background: #2196f3">
             <i class="fas fa-file-invoice-dollar"></i>
           </div>
           <h3>Create Order</h3>
           <p>Create new order for customer</p>
         </router-link>
 
-
-        <router-link to="/customers" class="action-card">
-          <div class="action-icon" style="background: #ff9800;">
+        <!-- Customers -->
+        <router-link to="/customersPage/customers" class="action-card">
+          <div class="action-icon" style="background: #ff9800">
             <i class="fas fa-user-plus"></i>
           </div>
           <h3>Add Customer</h3>
           <p>Register new customer</p>
         </router-link>
 
-
+        <!-- Logout -->
         <div class="action-card" @click="logout">
-          <div class="action-icon" style="background: #f44336;">
+          <div class="action-icon" style="background: #f44336">
             <i class="fas fa-sign-out-alt"></i>
           </div>
           <h3>Logout</h3>
@@ -166,13 +165,11 @@ is code ma side bar add kara please sirf wahie add kara baki ka code bilkul sahi
   </div>
 </template>
 
-
 <script>
 import { ref, onMounted } from "vue";
 import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from "@/firebase";
 import { signOut } from "firebase/auth";
-
 
 export default {
   name: "Dashboard",
@@ -184,7 +181,6 @@ export default {
     const totalRevenue = ref("0");
     const recentActivities = ref([]);
 
-
     const updateDate = () => {
       const now = new Date();
       currentDate.value = now.toLocaleDateString("en-IN", {
@@ -195,16 +191,13 @@ export default {
       });
     };
 
-
     const fetchDashboardData = async () => {
       try {
         const productsSnapshot = await getDocs(collection(db, "products"));
         totalProducts.value = productsSnapshot.size;
 
-
         const ordersSnapshot = await getDocs(collection(db, "orders"));
         totalOrders.value = ordersSnapshot.size;
-
 
         let revenue = 0;
         ordersSnapshot.forEach((doc) => {
@@ -213,10 +206,8 @@ export default {
         });
         totalRevenue.value = revenue.toLocaleString("en-IN");
 
-
         const customersSnapshot = await getDocs(collection(db, "customers"));
         totalCustomers.value = customersSnapshot.size;
-
 
         recentActivities.value = [
           {
@@ -257,7 +248,6 @@ export default {
       }
     };
 
-
     const logout = async () => {
       try {
         await signOut(auth);
@@ -267,12 +257,10 @@ export default {
       }
     };
 
-
     onMounted(() => {
       updateDate();
       fetchDashboardData();
     });
-
 
     return {
       currentDate,
@@ -287,29 +275,25 @@ export default {
 };
 </script>
 
-
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
-
-/* FULL‑WIDTH like products page */
 .desktop-dashboard {
-  padding: 0 20px 40px 16px;
+  padding: 0 0 32px 0;
+  max-width: 100%;
 }
 
-
-/* Header */
+/* Header ka gap kam */
 .dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding: 18px 22px;
+  margin: 0 0 18px 0;
+  padding: 14px 18px;
   background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  border-radius: 14px;
+  box-shadow: 0 3px 14px rgba(15, 23, 42, 0.06);
 }
-
 
 .header-left h1 {
   margin: 0;
@@ -318,13 +302,11 @@ export default {
   font-weight: 700;
 }
 
-
 .subtitle {
   margin: 4px 0 0 0;
   color: #7b8794;
   font-size: 14px;
 }
-
 
 .date-box {
   display: flex;
@@ -339,24 +321,21 @@ export default {
   box-shadow: 0 6px 18px rgba(102, 126, 234, 0.35);
 }
 
-
 .date-box i {
   font-size: 16px;
 }
 
-
 /* Stats Grid */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 18px;
   margin-bottom: 22px;
 }
 
-
 .stat-card {
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 18px;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
   display: flex;
@@ -366,12 +345,10 @@ export default {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-
 .stat-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
 }
-
 
 .stat-icon {
   width: 56px;
@@ -384,7 +361,6 @@ export default {
   color: #ffffff;
 }
 
-
 .stat-content h3 {
   margin: 0 0 4px 0;
   color: #7b8794;
@@ -392,14 +368,12 @@ export default {
   font-weight: 500;
 }
 
-
 .stat-number {
   margin: 0 0 8px 0;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
   color: #1f2933;
 }
-
 
 .view-link {
   color: #667eea;
@@ -408,21 +382,18 @@ export default {
   font-size: 13px;
 }
 
-
 .view-link:hover {
   text-decoration: underline;
 }
 
-
 /* Recent Activity */
 .recent-activity {
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 22px;
   margin-bottom: 22px;
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
 }
-
 
 .section-title {
   display: flex;
@@ -433,7 +404,6 @@ export default {
   border-bottom: 1px solid #e5e9f2;
 }
 
-
 .section-title h2 {
   margin: 0;
   color: #1f2933;
@@ -443,7 +413,6 @@ export default {
   gap: 8px;
 }
 
-
 .see-all {
   color: #667eea;
   font-size: 13px;
@@ -451,27 +420,22 @@ export default {
   font-weight: 500;
 }
 
-
 .see-all:hover {
   text-decoration: underline;
 }
 
-
 .activity-table {
   overflow-x: auto;
 }
-
 
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-
 thead {
   background: #f9fafb;
 }
-
 
 th {
   padding: 12px 10px;
@@ -482,7 +446,6 @@ th {
   border-bottom: 1px solid #e5e9f2;
 }
 
-
 td {
   padding: 12px 10px;
   border-bottom: 1px solid #edf1f7;
@@ -490,11 +453,9 @@ td {
   font-size: 13px;
 }
 
-
 tr:hover {
   background: #f9fafb;
 }
-
 
 .activity-type {
   display: flex;
@@ -502,11 +463,9 @@ tr:hover {
   gap: 8px;
 }
 
-
 .activity-type i {
   font-size: 15px;
 }
-
 
 .text-primary {
   color: #667eea;
@@ -521,7 +480,6 @@ tr:hover {
   color: #f97316;
 }
 
-
 .status-badge {
   padding: 4px 10px;
   border-radius: 999px;
@@ -530,44 +488,38 @@ tr:hover {
   text-transform: capitalize;
 }
 
-
 .status-badge.completed {
   background: #dcfce7;
   color: #166534;
 }
-
 
 .status-badge.success {
   background: #dbeafe;
   color: #1d4ed8;
 }
 
-
 .status-badge.pending {
   background: #fef9c3;
   color: #854d0e;
 }
 
-
 /* Quick Actions */
 .quick-actions {
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 22px;
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
 }
 
-
 .actions-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 18px;
 }
 
-
 .action-card {
   background: #f9fafb;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 18px;
   text-decoration: none;
   color: inherit;
@@ -576,14 +528,12 @@ tr:hover {
   cursor: pointer;
 }
 
-
 .action-card:hover {
   background: #ffffff;
   border-color: #667eea;
   transform: translateY(-3px);
   box-shadow: 0 10px 22px rgba(102, 126, 234, 0.18);
 }
-
 
 .action-icon {
   width: 48px;
@@ -597,7 +547,6 @@ tr:hover {
   color: #ffffff;
 }
 
-
 .action-card h3 {
   margin: 0 0 6px 0;
   color: #1f2933;
@@ -605,14 +554,12 @@ tr:hover {
   font-weight: 600;
 }
 
-
 .action-card p {
   margin: 0;
   color: #7b8794;
   font-size: 13px;
   line-height: 1.5;
 }
-
 
 /* Responsive */
 @media (max-width: 1200px) {
@@ -622,18 +569,15 @@ tr:hover {
   }
 }
 
-
 @media (max-width: 768px) {
   .desktop-dashboard {
-    padding: 12px;
+    padding: 10px;
   }
-
 
   .stats-grid,
   .actions-grid {
     grid-template-columns: 1fr;
   }
-
 
   .dashboard-header {
     flex-direction: column;

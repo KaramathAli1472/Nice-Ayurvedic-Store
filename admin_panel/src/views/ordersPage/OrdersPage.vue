@@ -770,7 +770,7 @@ export default {
 <style scoped>
 /* Professional Orders Dashboard Styles */
 .orders-dashboard {
-  padding: 30px;
+  padding: 10px;
   background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
   min-height: 100vh;
 }
@@ -779,8 +779,8 @@ export default {
 .dashboard-header {
   background: white;
   border-radius: 16px;
-  padding: 30px;
-  margin-bottom: 30px;
+  padding: 10px;
+  margin-bottom: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #e1e5eb;
 }
