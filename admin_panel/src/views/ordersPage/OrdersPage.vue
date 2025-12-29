@@ -533,26 +533,46 @@ export default {
   },
   
   methods: {
-    // Load orders from Firestore
-    async loadOrders() {
-      this.isLoading = true;
-      try {
-        const ordersRef = collection(db, "orders");
-        const q = query(ordersRef, orderBy("createdAt", "desc"));
-        
-        onSnapshot(q, (snapshot) => {
-          this.orders = snapshot.docs.map(doc => ({
+  // Load orders from Firestore
+  async loadOrders() {
+    this.isLoading = true;
+    try {
+      const ordersRef = collection(db, "orders");
+
+      // Query orders sorted by createdAt descending
+      const q = query(ordersRef, orderBy("createdAt", "desc"));
+
+      // Real-time listener
+      onSnapshot(q, (snapshot) => {
+        this.orders = snapshot.docs.map(doc => {
+          const data = doc.data();
+          return {
             id: doc.id,
-            ...doc.data(),
-            createdAt: doc.data().createdAt?.toDate() || new Date()
-          }));
-          this.isLoading = false;
+            customerName: data.customerName || '',
+            phone: data.phone || '',
+            email: data.email || '',
+            address: data.address || '',
+            productName: data.productName || '',
+            productCategory: data.productCategory || '',
+            productImage: data.productImage || '',
+            quantity: data.quantity || 1,
+            price: data.price || 0,
+            shippingCharge: data.shippingCharge || 0,
+            status: data.status || 'pending',
+            createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : new Date()
+          };
         });
-      } catch (error) {
-        console.error("Error loading orders:", error);
         this.isLoading = false;
-      }
-    },
+      }, (error) => {
+        console.error("Error fetching orders:", error);
+        this.isLoading = false;
+      });
+
+    } catch (error) {
+      console.error("Error loading orders:", error);
+      this.isLoading = false;
+    }
+  },
     
     // Refresh orders
     refreshOrders() {

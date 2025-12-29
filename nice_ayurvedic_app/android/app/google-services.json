@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "209482983272",
+    "project_id": "nice-ayurvedic-store",
+    "storage_bucket": "nice-ayurvedic-store.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209482983272:android:578f0e4f416d7ab981d8dd",
+        "android_client_info": {
+          "package_name": "com.niceayurvedicstore.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209482983272-moebfn2p7qflqgq05im5am23coia66v3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.niceayurvedicstore.admin",
+            "certificate_hash": "6b701545259aa508b3ce3707af550b2a6ea42277"
+          }
+        },
+        {
+          "client_id": "209482983272-1vq5a3gisj29e03gf41sh3k7llmgb6d4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_7glKHXx-dR9EeLpUBz8bp8hrhuPCdkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209482983272-1vq5a3gisj29e03gf41sh3k7llmgb6d4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "209482983272-ngmjgj52ohe1mt3imtpuiaa3c9m1n97b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mobileApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

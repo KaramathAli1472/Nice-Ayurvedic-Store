@@ -1,0 +1,12 @@
+// CheckoutFlow -> ConfirmationScreen -> placeOrder() call karo
+// OR direkt test.dart file banao:
+// lib/test_firebase.dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+void testOrderSave() async {
+  await FirebaseFirestore.instance.collection('test_orders').add({
+    'test': 'working',
+    'time': DateTime.now(),
+  });
+  print('✅ Order saved check Firebase Console');
+}
