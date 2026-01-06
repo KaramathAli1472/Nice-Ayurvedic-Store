@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "209482983272-moebfn2p7qflqgq05im5am23coia66v3.apps.googleusercontent.com",
+          "client_id": "209482983272-66ceravdmsrp7e8ifh3k0ibv26p4s6mv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.niceayurvedicstore.admin",
-            "certificate_hash": "6b701545259aa508b3ce3707af550b2a6ea42277"
+            "certificate_hash": "f78f959b90ddc42850f4494b3b7b61857f40e346"
           }
         },
         {

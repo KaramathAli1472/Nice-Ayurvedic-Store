@@ -17,7 +17,8 @@ def flutterVersionCode = localProperties.getProperty('flutter.versionCode') ?: '
 def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0'
 
 android {
-    namespace "com.example.nice_ayurvedic_app"
+    // ✅ MUST match your MainActivity package / Firebase app
+    namespace "com.niceayurvedicstore.admin"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -44,7 +45,6 @@ android {
             // default debug signing (auto)
         }
         release {
-            // abhi debug signing hi use hogi
             signingConfig signingConfigs.debug
             minifyEnabled false
             shrinkResources false
@@ -59,7 +59,8 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    // ✅ Firebase BOM + Analytics
     implementation platform('com.google.firebase:firebase-bom:34.7.0')
     implementation 'com.google.firebase:firebase-analytics'
 }
-

@@ -1,5 +1,5 @@
-package com.example.nice_ayurvedic_app
+package com.niceayurvedicstore.admin
 
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 
-class MainActivity : FlutterActivity()
+class MainActivity : FlutterFragmentActivity()

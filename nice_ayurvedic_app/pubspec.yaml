@@ -10,22 +10,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^2.24.2
-  cloud_firestore: ^4.13.6
-  firebase_storage: ^11.6.0 # ✅ VERSION CHANGED (Compatible)
+  firebase_core: ^3.11.0
+  cloud_firestore: ^5.0.2
+  firebase_storage: ^12.0.2
   cached_network_image: ^3.3.0 # ✅ VERSION CHANGED (Compatible)
   google_fonts: ^5.1.0     # ✅ VERSION CHANGED (Compatible)
   provider: ^6.0.5         # ✅ VERSION CHANGED (Compatible)
   intl: ^0.18.1            # ✅ VERSION CHANGED (Compatible)
   cupertino_icons: ^1.0.2
-  firebase_messaging: ^14.7.5
+  firebase_messaging: ^15.2.10
   # flutter_local_notifications: ^14.1.1
   
   flutter_otp_text_field: ^1.1.0
-  geolocator: ^10.0.0
-  geocoding: ^2.1.1
-  firebase_auth: ^4.15.3
-  google_sign_in: ^6.1.6
+  firebase_auth: ^5.5.3
+  google_sign_in: ^5.4.0
+  geolocator: ^14.0.1
+  geocoding: ^4.0.0
+  # wakelock: ^0.6.2
   
   
   
@@ -34,6 +35,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  wakelock_windows: ^0.2.1
 
 flutter:
   uses-material-design: true

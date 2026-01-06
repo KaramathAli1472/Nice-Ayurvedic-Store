@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,9 +13,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   bool _isLoading = false;
 
@@ -47,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   TextField(
                     controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       labelText: 'Email',
                       prefixIcon: Icon(Icons.email),
@@ -68,17 +74,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       onPressed: _isLoading ? null : _loginWithEmail,
                       child: _isLoading
-                          ? const CircularProgressIndicator()
+                          ? const CircularProgressIndicator(color: Colors.white)
                           : const Text('Login with Email'),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  const Divider(),
-                  const SizedBox(height: 20),
-                  TextButton(
-                    onPressed: _continueAsGuest,
-                    child: const Text('Continue as Guest'),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: OutlinedButton.icon(
+                      onPressed: _isLoading ? null : _loginWithGoogle,
+                      icon: const Icon(Icons.g_translate),
+                      label: _isLoading
+                          ? const CircularProgressIndicator()
+                          : const Text('Login with Google'),
+                    ),
                   ),
+                  // ✅ Guest button removed
                 ],
               ),
             ),
@@ -88,23 +100,66 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  /// EMAIL LOGIN
+  // ================= EMAIL LOGIN =================
   Future<void> _loginWithEmail() async {
     setState(() => _isLoading = true);
     try {
-      await _auth.signInWithEmailAndPassword(
+      final credential = await _auth.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+
+      await _saveUserToFirestore(credential.user);
       _goHome();
-    } catch (e) {
-      _showSnackBar(e.toString());
+    } on FirebaseAuthException catch (e) {
+      _showSnackBar(e.message ?? e.code);
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
-  void _continueAsGuest() => _goHome();
+  // ================= GOOGLE LOGIN =================
+  Future<void> _loginWithGoogle() async {
+    setState(() => _isLoading = true);
+
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        _showSnackBar('Google sign-in cancelled');
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+
+      await _saveUserToFirestore(userCredential.user);
+      _goHome();
+    } on FirebaseAuthException catch (e) {
+      _showSnackBar(e.message ?? e.code);
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  // ================= SAVE USER TO FIRESTORE =================
+  Future<void> _saveUserToFirestore(User? user) async {
+    if (user == null) return;
+
+    await _firestore.collection('users').doc(user.uid).set({
+      'uid': user.uid,
+      'name': user.displayName ?? 'User',
+      'email': user.email ?? '',
+      'phone': user.phoneNumber ?? '',
+      'photo': user.photoURL ?? '',
+      'provider': user.providerData.first.providerId,
+      'createdAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
 
   void _goHome() {
     Navigator.pushReplacement(
